@@ -52,7 +52,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AvailabilityStatus, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AvailabilityStatus, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.DropDownListFor(model => model.AvailabilityStatus,
+                    new SelectList(new[] { "Available", "Borrowed", "Reserved" }),
+                    "Select Status",
+                    new { @class = "form-control" })
+
                 @Html.ValidationMessageFor(model => model.AvailabilityStatus, "", new { @class = "text-danger" })
             </div>
         </div>
