@@ -20,5 +20,12 @@ namespace LibraryManagementSystem.Data
         }
 
         public System.Data.Entity.DbSet<LibraryManagementSystem.Models.Book> Books { get; set; }
+        public System.Data.Entity.DbSet<LibraryManagementSystem.Models.Member> Members { get; set; }
+
+        public System.Data.Entity.DbSet<LibraryManagementSystem.Models.BorrowRecord> BorrowRecords { get; set; }
+
+        public System.Data.Entity.DbSet<LibraryManagementSystem.Models.Feedback> Feedbacks { get; set; }
+
+        public System.Data.Entity.DbSet<LibraryManagementSystem.Models.User> Users { get; set; }
     }
 }
