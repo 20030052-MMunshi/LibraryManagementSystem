@@ -1,75 +1,127 @@
 ﻿/* General Body Styling */
+html {
+    min-height: 100%;
+}
+
 body {
-    background-color: #f4f6f9;
-    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    background-image: linear-gradient(rgba(10, 25, 47, 0.62), rgba(10, 25, 47, 0.62)), url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #111827;
 }
 
 /* Main Content Area */
 .body-content {
-    margin-top: 25px;
-    padding: 25px;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    margin-top: 35px;
+    margin-bottom: 35px;
+    padding: 35px;
+    background-color: rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(6px);
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
 }
 
 /* Navigation Bar */
 .navbar {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    background-color: rgba(15, 23, 42, 0.96) !important;
+    border: none;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    padding: 14px 0;
 }
 
 .navbar-brand {
     font-weight: bold;
-    font-size: 22px;
+    font-size: 24px;
     letter-spacing: 0.5px;
+    color: #ffffff !important;
 }
 
-/* Navbar Links */
 .nav-link {
-    color: white !important;
-    margin-right: 10px;
-    font-weight: 500;
+    color: #f8fafc !important;
+    margin-right: 12px;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
     .nav-link:hover {
-        color: #ffc107 !important;
+        color: #facc15 !important;
     }
 
 /* Headings */
-h1, h2, h3 {
-    color: #1f2937;
-    font-weight: bold;
+h1, h2, h3, h4 {
+    color: #0f172a;
+    font-weight: 700;
 }
 
-/* Jumbotron */
+/* Jumbotron / Hero Section */
 .jumbotron {
-    background-color: #e9f2ff;
-    padding: 40px;
-    border-radius: 12px;
-    margin-bottom: 30px;
+    background-color: rgba(226, 232, 240, 0.82);
+    padding: 45px;
+    border-radius: 16px;
+    margin-bottom: 35px;
+    text-align: center;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.35);
 }
+
+    .jumbotron h1 {
+        color: #0f172a;
+        font-size: 42px;
+    }
+
+    .jumbotron p {
+        color: #1f2937;
+        font-size: 18px;
+    }
 
 /* Tables */
 .table {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.92);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(203, 213, 225, 0.8);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
 
     .table th {
-        background-color: #1f2937;
-        color: white;
+        background-color: #1e3a8a !important;
+        color: #ffffff !important;
         text-align: center;
+        font-weight: bold;
+        font-size: 17px;
+        padding: 14px;
     }
+
+        .table th * {
+            color: #ffffff !important;
+        }
 
     .table td {
         vertical-align: middle;
+        color: #111827 !important;
+        background-color: rgba(255, 255, 255, 0.86);
+        padding: 13px;
+        font-size: 15px;
+    }
+
+    .table tr:nth-child(even) td {
+        background-color: rgba(239, 246, 255, 0.88);
+    }
+
+    .table tr:hover td {
+        background-color: rgba(219, 234, 254, 0.95);
     }
 
 /* Buttons */
 .btn {
-    border-radius: 6px;
-    padding: 8px 16px;
+    border-radius: 8px;
+    padding: 9px 18px;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
 .btn-primary {
@@ -87,6 +139,21 @@ h1, h2, h3 {
     border-color: #dc2626;
 }
 
+.btn:hover {
+    transform: translateY(-1px);
+    opacity: 0.92;
+}
+
+/* Links */
+a {
+    color: #1d4ed8;
+    font-weight: 500;
+}
+
+    a:hover {
+        color: #0f172a;
+    }
+
 /* Form Controls */
 input,
 select,
@@ -95,24 +162,63 @@ textarea {
 }
 
 .form-control {
-    border-radius: 6px;
-    border: 1px solid #ced4da;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    color: #111827;
 }
+
+    .form-control:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 0.18rem rgba(37, 99, 235, 0.25);
+    }
 
 /* Validation Errors */
 .text-danger {
     font-size: 14px;
-    color: #dc2626;
+    color: #dc2626 !important;
+    font-weight: 600;
 }
 
 /* Footer */
 footer {
-    margin-top: 30px;
+    margin-top: 35px;
     text-align: center;
-    color: #6b7280;
+    color: #ffffff;
+    background-color: rgba(15, 23, 42, 0.92);
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
+
+    footer a {
+        color: #facc15 !important;
+    }
 
 /* Description Lists */
 .dl-horizontal dt {
     white-space: normal;
+}
+
+/* Small Screen Fix */
+@media (max-width: 768px) {
+    .body-content {
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .jumbotron {
+        padding: 25px;
+    }
+
+        .jumbotron h1 {
+            font-size: 32px;
+        }
+
+    .table th,
+    .table td {
+        font-size: 14px;
+        padding: 9px;
+    }
 }
