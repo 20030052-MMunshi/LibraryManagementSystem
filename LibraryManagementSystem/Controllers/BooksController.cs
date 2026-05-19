@@ -8,9 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using LibraryManagementSystem.Data;
 using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Filters;
 
 namespace LibraryManagementSystem.Controllers
 {
+    [CustomAuthorize]
     public class BooksController : Controller
     {
         private LibraryManagementSystemContext db = new LibraryManagementSystemContext();

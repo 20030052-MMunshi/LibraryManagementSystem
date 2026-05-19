@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagementSystem.Models
 {
@@ -7,7 +8,7 @@ namespace LibraryManagementSystem.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Member name is required")]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "Name cannot be more than 100 characters")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
@@ -15,7 +16,10 @@ namespace LibraryManagementSystem.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Phone number is required")]
-        [Phone(ErrorMessage = "Enter a valid phone number")]
+        [StringLength(15, ErrorMessage = "Phone number cannot be more than 15 characters")]
         public string Phone { get; set; }
+
+        public virtual ICollection<BorrowRecord> BorrowRecords { get; set; }
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
     }
 }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using LibraryManagementSystem.Data;
+using LibraryManagementSystem.Filters;
+using LibraryManagementSystem.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,11 +9,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using LibraryManagementSystem.Data;
-using LibraryManagementSystem.Models;
+
 
 namespace LibraryManagementSystem.Controllers
 {
+    [CustomAuthorize]
     public class FeedbacksController : Controller
     {
         private LibraryManagementSystemContext db = new LibraryManagementSystemContext();
@@ -54,6 +57,8 @@ namespace LibraryManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                feedback.FeedbackDate = DateTime.Now;
+
                 db.Feedbacks.Add(feedback);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -86,7 +91,7 @@ namespace LibraryManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,MemberId,BookId,Rating,Comment")] Feedback feedback)
+        public ActionResult Edit([Bind(Include = "Id,MemberId,BookId,Rating,Comment,FeedbackDate")] Feedback feedback)
         {
             if (ModelState.IsValid)
             {

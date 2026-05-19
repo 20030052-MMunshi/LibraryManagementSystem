@@ -1,10 +1,17 @@
 ﻿@model IEnumerable<LibraryManagementSystem.Models.Book>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Books";
 }
 
 <h2>Book Management</h2>
+
+@if (Session["UserRole"] != null && Session["UserRole"].ToString() == "Librarian")
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 
 @using (Html.BeginForm("Index", "Books", FormMethod.Get))
 {
@@ -13,14 +20,14 @@
         <input type="text"
                name="search"
                value="@ViewBag.Search"
-               placeholder="Title, author or genre"
+               placeholder="Title, Author or Genre"
                class="form-control"
-               style="display:inline-block; width:250px;" />
+               style="width:250px; display:inline-block;" />
 
         Status:
         <select name="status"
                 class="form-control"
-                style="display:inline-block; width:160px;">
+                style="width:180px; display:inline-block;">
 
             <option value="">All</option>
 
@@ -44,32 +51,26 @@
         <input type="submit"
                value="Search"
                class="btn btn-primary" />
-
-        @Html.ActionLink("Clear", "Index", null,
-            new { @class = "btn btn-secondary" })
     </p>
 }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
 <table class="table table-striped table-bordered">
+
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            Title
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.Author)
+            Author
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.Genre)
+            Genre
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.ISBN)
+            ISBN
         </th>
 
         <th>
@@ -80,12 +81,15 @@
             Book Cover
         </th>
 
-        <th></th>
+        <th>
+            Actions
+        </th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
@@ -121,10 +125,23 @@
             </td>
 
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+                @if (Session["UserRole"] != null &&
+                     Session["UserRole"].ToString() == "Librarian")
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    @: |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @: |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                }
+                else
+                {
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                }
+
             </td>
+
         </tr>
     }
 

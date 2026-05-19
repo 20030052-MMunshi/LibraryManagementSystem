@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryManagementSystem.Models
 {
@@ -6,20 +8,27 @@ namespace LibraryManagementSystem.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Member is required")]
         public int MemberId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Book is required")]
         public int BookId { get; set; }
 
         [Required(ErrorMessage = "Rating is required")]
         [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5")]
         public int Rating { get; set; }
 
-        [StringLength(300)]
+        [Required(ErrorMessage = "Comment is required")]
+        [StringLength(300, ErrorMessage = "Comment cannot be more than 300 characters")]
         public string Comment { get; set; }
 
-        public Member Member { get; set; }
-        public Book Book { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime FeedbackDate { get; set; }
+
+        [ForeignKey("MemberId")]
+        public virtual Member Member { get; set; }
+
+        [ForeignKey("BookId")]
+        public virtual Book Book { get; set; }
     }
 }

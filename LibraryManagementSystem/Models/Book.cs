@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagementSystem.Models
 {
@@ -26,5 +27,8 @@ namespace LibraryManagementSystem.Models
         public string AvailabilityStatus { get; set; }
 
         public string CoverImageUrl { get; set; }
+
+        public virtual ICollection<BorrowRecord> BorrowRecords { get; set; }
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
     }
 }
