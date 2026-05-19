@@ -4,11 +4,15 @@
 
 <main>
 
-    <div class="jumbotron text-center">
+    <!-- HERO SECTION -->
+    <div class="jumbotron text-center shadow-lg rounded-4 p-5"
+         style="background: linear-gradient(to right, rgba(255,255,255,0.92), rgba(230,240,255,0.92));">
 
-        <h1>Library Management System</h1>
+        <h1 style="font-size:58px; font-weight:bold; color:#0f172a;">
+            Library Management System
+        </h1>
 
-        <p class="lead">
+        <p class="lead" style="font-size:20px; color:#334155; margin-top:20px;">
             This Library Management System is developed using ASP.NET MVC Framework.
             The system helps librarians manage books, members, borrowing records,
             feedback, and user login in an organized and efficient way.
@@ -17,155 +21,213 @@
         <br />
 
         <p>
-            @Html.ActionLink("Manage Books", "Index", "Books",
+            @Html.ActionLink("Login", "Login", "Home",
                 null,
-                new { @class = "btn btn-primary btn-lg" })
+                new { @class = "btn btn-primary btn-lg px-5 py-3 me-3" })
 
-            @Html.ActionLink("View Members", "Index", "Members",
+            @Html.ActionLink("Register", "Register", "Home",
                 null,
-                new { @class = "btn btn-success btn-lg" })
+                new { @class = "btn btn-success btn-lg px-5 py-3" })
         </p>
 
     </div>
 
-    <!-- Library Profile Section -->
+    <!-- LIBRARY PROFILE -->
+    <div class="card shadow-lg border-0 rounded-4 p-5 mb-5"
+         style="background: linear-gradient(to right, rgba(255,255,255,0.92), rgba(240,245,255,0.92));">
 
-    <div class="card p-4 mb-5 shadow rounded">
+        <div class="text-center mb-4">
+            <h2 style="font-size:48px; font-weight:bold; color:#0f172a;">
+                Library Profile
+            </h2>
 
-        <h2 class="text-center">Library Profile</h2>
+            <p style="color:#475569; font-size:18px;">
+                Complete information about the library services and contact details.
+            </p>
+        </div>
 
-        <hr />
+        <hr style="border-top:2px solid #cbd5e1;" />
 
-        <div class="row">
+        <div class="row mt-4">
 
             <div class="col-md-6">
+                <div class="p-4 rounded-4 shadow-sm h-100"
+                     style="background-color:rgba(37,99,235,0.08); min-height:260px;">
 
-                <p><strong>Library Name:</strong> Horizon Valley Library</p>
+                    <h4 style="color:#2563eb; font-weight:bold; font-size:28px;">
+                        📚 Library Information
+                    </h4>
 
-                <p><strong>Location:</strong> Melbourne, Australia</p>
+                    <p style="font-size:17px; margin-top:20px;">
+                        <strong>Library Name:</strong> Horizon Valley Library
+                    </p>
 
-                <p><strong>Operating Hours:</strong> Monday - Saturday | 8:30 AM - 7:00 PM</p>
+                    <p style="font-size:17px;">
+                        <strong>Location:</strong> Melbourne, Australia
+                    </p>
 
+                    <p style="font-size:17px;">
+                        <strong>Operating Hours:</strong><br />
+                        Monday - Saturday | 8:30 AM - 7:00 PM
+                    </p>
+
+                </div>
             </div>
 
             <div class="col-md-6">
+                <div class="p-4 rounded-4 shadow-sm h-100"
+                     style="background-color:rgba(22,163,74,0.08); min-height:260px;">
 
-                <p><strong>Contact Details:</strong> +61 3 8456 7821</p>
+                    <h4 style="color:#16a34a; font-weight:bold; font-size:28px;">
+                        📞 Contact & Services
+                    </h4>
 
-                <p><strong>Email:</strong> support@horizonlibrary.com</p>
+                    <p style="font-size:17px; margin-top:20px;">
+                        <strong>Contact Details:</strong> +61 3 8456 7821
+                    </p>
 
-                <p><strong>Services:</strong> Digital Library Access, Book Borrowing, Member Management, Study Rooms</p>
+                    <p style="font-size:17px;">
+                        <strong>Email:</strong> support@horizonlibrary.com
+                    </p>
 
+                    <p style="font-size:17px;">
+                        <strong>Services:</strong><br />
+                        Digital Library Access, Book Borrowing,
+                        Member Management, Study Rooms
+                    </p>
+
+                </div>
             </div>
 
         </div>
 
     </div>
 
-    <!-- Features Section -->
+    <!-- FEATURES SECTION -->
+    <div class="row text-center d-flex align-items-stretch">
 
-    <div class="row">
+        <section class="col-md-4 d-flex">
+            <div class="card shadow border-0 rounded-4 p-4 mb-4 w-100 d-flex flex-column justify-content-between"
+                 style="background-color:rgba(255,255,255,0.88); min-height:280px;">
 
-        <section class="col-md-4">
+                <div>
+                    <h2 style="color:#1e3a8a;">📘 Book Management</h2>
 
-            <h2>Book Management</h2>
+                    <p style="font-size:16px; color:#334155;">
+                        Users can add, edit, delete, and view books.
+                        The system stores information such as title,
+                        author, genre, ISBN, and availability status.
+                    </p>
+                </div>
 
-            <p>
-                Users can add, edit, delete, and view books.
-                The system also stores information such as title,
-                author, genre, ISBN, and availability status.
-            </p>
+                <p>
+                    @Html.ActionLink("Books Page", "Index", "Books",
+                        null,
+                        new { @class = "btn btn-outline-primary" })
+                </p>
 
-            <p>
-                @Html.ActionLink("Books Page", "Index", "Books",
-                    null,
-                    new { @class = "btn btn-outline-dark" })
-            </p>
-
+            </div>
         </section>
 
-        <section class="col-md-4">
+        <section class="col-md-4 d-flex">
+            <div class="card shadow border-0 rounded-4 p-4 mb-4 w-100 d-flex flex-column justify-content-between"
+                 style="background-color:rgba(255,255,255,0.88); min-height:280px;">
 
-            <h2>Borrow Records</h2>
+                <div>
+                    <h2 style="color:#166534;">📖 Borrow Records</h2>
 
-            <p>
-                Borrowing records help the library manage borrowed books,
-                due dates, return dates, and member activities.
-            </p>
+                    <p style="font-size:16px; color:#334155;">
+                        Borrowing records help manage borrowed books,
+                        due dates, return dates, and member activities.
+                    </p>
+                </div>
 
-            <p>
-                @Html.ActionLink("Borrow Records", "Index", "BorrowRecords",
-                    null,
-                    new { @class = "btn btn-outline-dark" })
-            </p>
+                <p>
+                    @Html.ActionLink("Borrow Records", "Index", "BorrowRecords",
+                        null,
+                        new { @class = "btn btn-outline-success" })
+                </p>
 
+            </div>
         </section>
 
-        <section class="col-md-4">
+        <section class="col-md-4 d-flex">
+            <div class="card shadow border-0 rounded-4 p-4 mb-4 w-100 d-flex flex-column justify-content-between"
+                 style="background-color:rgba(255,255,255,0.88); min-height:280px;">
 
-            <h2>User Login System</h2>
+                <div>
+                    <h2 style="color:#9333ea;">🔐 User Login System</h2>
 
-            <p>
-                The system includes a simple login and registration feature
-                for librarians and members to access the application securely.
-            </p>
+                    <p style="font-size:16px; color:#334155;">
+                        The system includes secure login and registration
+                        for librarians and members.
+                    </p>
+                </div>
 
-            <p>
-                @Html.ActionLink("Login", "Login", "Home",
-                    null,
-                    new { @class = "btn btn-outline-dark" })
-            </p>
+                <p>
+                    @Html.ActionLink("Login", "Login", "Home",
+                        null,
+                        new { @class = "btn btn-outline-dark" })
+                </p>
 
+            </div>
         </section>
 
     </div>
 
     <br />
 
-    <!-- Group Details -->
+    <!-- GROUP DETAILS -->
+    <div class="card shadow-lg border-0 rounded-4 p-4"
+         style="background-color:rgba(255,255,255,0.92);">
 
-    <h2>Group Details</h2>
+        <h2 class="text-center mb-4"
+            style="font-weight:bold; color:#0f172a;">
+            Group Details
+        </h2>
 
-    <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered align-middle">
 
-        <tr>
-            <th>Student Name</th>
-            <th>Student ID</th>
-            <th>Contribution</th>
-        </tr>
+            <tr>
+                <th>Student Name</th>
+                <th>Student ID</th>
+                <th>Contribution</th>
+            </tr>
 
-        <tr>
-            <td>Md Siam Munshi</td>
-            <td>20030052</td>
-            <td>
-                Book Management CRUD, validation,
-                dropdown implementation, login system,
-                GitHub integration and UI improvements.
-            </td>
-        </tr>
+            <tr>
+                <td>Md Siam Munshi</td>
+                <td>20030052</td>
+                <td>
+                    Book Management CRUD, validation,
+                    dropdown implementation, login system,
+                    GitHub integration and UI improvements.
+                </td>
+            </tr>
 
-        <tr>
-            <td>Roshan Kumar Mahato</td>
-            <td>2003337</td>
-            <td>Database and Member Management</td>
-        </tr>
+            <tr>
+                <td>Roshan Kumar Mahato</td>
+                <td>2003337</td>
+                <td>Database and Member Management</td>
+            </tr>
 
-        <tr>
-            <td>Md Amdadul Haque Kawser</td>
-            <td>20029397</td>
-            <td>Borrow Record Management</td>
-        </tr>
+            <tr>
+                <td>Md Amdadul Haque Kawser</td>
+                <td>20029397</td>
+                <td>Borrow Record Management</td>
+            </tr>
 
-        <tr>
-            <td>Md Ashraful Islam</td>
-            <td>20031587</td>
-            <td>
-                Feedback System development, testing,
-                UI/CSS improvements, homepage customization,
-                login integration and GitHub collaboration.
-            </td>
-        </tr>
+            <tr>
+                <td>Md Ashraful Islam</td>
+                <td>20031587</td>
+                <td>
+                    Feedback System development, testing,
+                    UI/CSS improvements, homepage customization,
+                    login integration and GitHub collaboration.
+                </td>
+            </tr>
 
-    </table>
+        </table>
+
+    </div>
 
 </main>

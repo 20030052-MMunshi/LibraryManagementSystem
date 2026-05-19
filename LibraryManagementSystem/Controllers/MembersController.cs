@@ -15,6 +15,18 @@ namespace LibraryManagementSystem.Controllers
     {
         private LibraryManagementSystemContext db = new LibraryManagementSystemContext();
 
+        // SECURITY CHECK: Login required
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (Session["UserName"] == null)
+            {
+                filterContext.Result = RedirectToAction("Login", "Home");
+                return;
+            }
+
+            base.OnActionExecuting(filterContext);
+        }
+
         // GET: Members
         public ActionResult Index()
         {
@@ -28,11 +40,14 @@ namespace LibraryManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Member member = db.Members.Find(id);
+
             if (member == null)
             {
                 return HttpNotFound();
             }
+
             return View(member);
         }
 
@@ -43,8 +58,6 @@ namespace LibraryManagementSystem.Controllers
         }
 
         // POST: Members/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Email,Phone")] Member member)
@@ -53,6 +66,7 @@ namespace LibraryManagementSystem.Controllers
             {
                 db.Members.Add(member);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
@@ -66,17 +80,18 @@ namespace LibraryManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Member member = db.Members.Find(id);
+
             if (member == null)
             {
                 return HttpNotFound();
             }
+
             return View(member);
         }
 
         // POST: Members/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Email,Phone")] Member member)
@@ -85,8 +100,10 @@ namespace LibraryManagementSystem.Controllers
             {
                 db.Entry(member).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
+
             return View(member);
         }
 
@@ -97,11 +114,14 @@ namespace LibraryManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Member member = db.Members.Find(id);
+
             if (member == null)
             {
                 return HttpNotFound();
             }
+
             return View(member);
         }
 
@@ -111,8 +131,13 @@ namespace LibraryManagementSystem.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Member member = db.Members.Find(id);
-            db.Members.Remove(member);
-            db.SaveChanges();
+
+            if (member != null)
+            {
+                db.Members.Remove(member);
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -122,6 +147,7 @@ namespace LibraryManagementSystem.Controllers
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

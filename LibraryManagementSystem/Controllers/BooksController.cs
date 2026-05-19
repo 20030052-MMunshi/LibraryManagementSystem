@@ -15,6 +15,18 @@ namespace LibraryManagementSystem.Controllers
     {
         private LibraryManagementSystemContext db = new LibraryManagementSystemContext();
 
+        // SECURITY CHECK: User must login first
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (Session["UserName"] == null)
+            {
+                filterContext.Result = RedirectToAction("Login", "Home");
+                return;
+            }
+
+            base.OnActionExecuting(filterContext);
+        }
+
         // GET: Books
         public ActionResult Index()
         {
@@ -28,11 +40,14 @@ namespace LibraryManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Book book = db.Books.Find(id);
+
             if (book == null)
             {
                 return HttpNotFound();
             }
+
             return View(book);
         }
 
@@ -43,8 +58,6 @@ namespace LibraryManagementSystem.Controllers
         }
 
         // POST: Books/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Author,Genre,ISBN,AvailabilityStatus,CoverImageUrl")] Book book)
@@ -66,17 +79,18 @@ namespace LibraryManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Book book = db.Books.Find(id);
+
             if (book == null)
             {
                 return HttpNotFound();
             }
+
             return View(book);
         }
 
         // POST: Books/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Author,Genre,ISBN,AvailabilityStatus,CoverImageUrl")] Book book)
@@ -87,6 +101,7 @@ namespace LibraryManagementSystem.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(book);
         }
 
@@ -97,11 +112,14 @@ namespace LibraryManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Book book = db.Books.Find(id);
+
             if (book == null)
             {
                 return HttpNotFound();
             }
+
             return View(book);
         }
 
@@ -111,8 +129,13 @@ namespace LibraryManagementSystem.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Book book = db.Books.Find(id);
-            db.Books.Remove(book);
-            db.SaveChanges();
+
+            if (book != null)
+            {
+                db.Books.Remove(book);
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -122,6 +145,7 @@ namespace LibraryManagementSystem.Controllers
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }
