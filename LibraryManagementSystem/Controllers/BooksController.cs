@@ -28,9 +28,27 @@ namespace LibraryManagementSystem.Controllers
         }
 
         // GET: Books
-        public ActionResult Index()
+        public ActionResult Index(string search, string status)
         {
-            return View(db.Books.ToList());
+            var books = db.Books.AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                books = books.Where(b =>
+                    b.Title.Contains(search) ||
+                    b.Author.Contains(search) ||
+                    b.Genre.Contains(search));
+            }
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                books = books.Where(b => b.AvailabilityStatus == status);
+            }
+
+            ViewBag.Search = search;
+            ViewBag.Status = status;
+
+            return View(books.ToList());
         }
 
         // GET: Books/Details/5
