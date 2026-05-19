@@ -17,10 +17,25 @@ namespace LibraryManagementSystem.Controllers
     {
         private LibraryManagementSystemContext db = new LibraryManagementSystemContext();
 
+        // SECURITY CHECK: Login required
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (Session["UserName"] == null)
+            {
+                filterContext.Result = RedirectToAction("Login", "Home");
+                return;
+            }
+
+            base.OnActionExecuting(filterContext);
+        }
+
         // GET: BorrowRecords
         public ActionResult Index()
         {
-            var borrowRecords = db.BorrowRecords.Include(b => b.Book).Include(b => b.Member);
+            var borrowRecords = db.BorrowRecords
+                .Include(b => b.Book)
+                .Include(b => b.Member);
+
             return View(borrowRecords.ToList());
         }
 
@@ -31,11 +46,14 @@ namespace LibraryManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             BorrowRecord borrowRecord = db.BorrowRecords.Find(id);
+
             if (borrowRecord == null)
             {
                 return HttpNotFound();
             }
+
             return View(borrowRecord);
         }
 
@@ -44,12 +62,11 @@ namespace LibraryManagementSystem.Controllers
         {
             ViewBag.BookId = new SelectList(db.Books, "Id", "Title");
             ViewBag.MemberId = new SelectList(db.Members, "Id", "Name");
+
             return View();
         }
 
         // POST: BorrowRecords/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,MemberId,BookId,BorrowDate,DueDate,ReturnDate,Status,FineAmount")] BorrowRecord borrowRecord)
@@ -58,11 +75,13 @@ namespace LibraryManagementSystem.Controllers
             {
                 db.BorrowRecords.Add(borrowRecord);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
             ViewBag.BookId = new SelectList(db.Books, "Id", "Title", borrowRecord.BookId);
             ViewBag.MemberId = new SelectList(db.Members, "Id", "Name", borrowRecord.MemberId);
+
             return View(borrowRecord);
         }
 
@@ -73,19 +92,21 @@ namespace LibraryManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             BorrowRecord borrowRecord = db.BorrowRecords.Find(id);
+
             if (borrowRecord == null)
             {
                 return HttpNotFound();
             }
+
             ViewBag.BookId = new SelectList(db.Books, "Id", "Title", borrowRecord.BookId);
             ViewBag.MemberId = new SelectList(db.Members, "Id", "Name", borrowRecord.MemberId);
+
             return View(borrowRecord);
         }
 
         // POST: BorrowRecords/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,MemberId,BookId,BorrowDate,DueDate,ReturnDate,Status,FineAmount")] BorrowRecord borrowRecord)
@@ -94,10 +115,13 @@ namespace LibraryManagementSystem.Controllers
             {
                 db.Entry(borrowRecord).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
+
             ViewBag.BookId = new SelectList(db.Books, "Id", "Title", borrowRecord.BookId);
             ViewBag.MemberId = new SelectList(db.Members, "Id", "Name", borrowRecord.MemberId);
+
             return View(borrowRecord);
         }
 
@@ -108,11 +132,14 @@ namespace LibraryManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             BorrowRecord borrowRecord = db.BorrowRecords.Find(id);
+
             if (borrowRecord == null)
             {
                 return HttpNotFound();
             }
+
             return View(borrowRecord);
         }
 
@@ -122,8 +149,13 @@ namespace LibraryManagementSystem.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             BorrowRecord borrowRecord = db.BorrowRecords.Find(id);
-            db.BorrowRecords.Remove(borrowRecord);
-            db.SaveChanges();
+
+            if (borrowRecord != null)
+            {
+                db.BorrowRecords.Remove(borrowRecord);
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -133,6 +165,7 @@ namespace LibraryManagementSystem.Controllers
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }
